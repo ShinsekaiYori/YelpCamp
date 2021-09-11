@@ -5,7 +5,7 @@ const Review = require('./models/review');
 
 
 module.exports.isLoggedIn = (req, res, next) => {
-    console.log("REQ.USER...", req.user);
+
     if (!req.isAuthenticated()) {
         req.session.returnTo = req.originalUrl;
         req.flash('error', 'You must be signed in first!')
@@ -16,6 +16,7 @@ module.exports.isLoggedIn = (req, res, next) => {
 
 module.exports.validateCampground = (req, res, next) => {
     const { error } = campgroundSchema.validate(req.body);
+    console.log(req.body);
     if (error) {
         const msg = error.details.map(el => el.message).join(',')
         throw new ExpressError(msg, 400)
@@ -46,16 +47,8 @@ module.exports.isReviewAuthor = async (req, res, next) => {
 }
 
 
-
-
-
-
-
-
-
-
 module.exports.validateReview = (req, res, next) => {
-    const { error } = reviewSchema.validate(req.body)
+    const { error } = reviewSchema.validate(req.body);
     if (error) {
         const msg = error.details.map(el => el.message).join(',')
         throw new ExpressError(msg, 400)
