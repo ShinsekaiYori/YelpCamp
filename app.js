@@ -56,11 +56,11 @@ const secret = process.env.SECRET || 'thisshouldbeabettersecret!';
 const store = new MongoDBStore({
     url: dbUrl,
     secret,
-    touchAfter: 24 * 60 * 60
+    touchAfter: 24 * 60 * 60 //stops uncessary update by lazy updates, in seconds here
 });
 
 store.on("error", function (e) {
-    console.log("SESSION STORE ERROE!", e)
+    console.log("SESSION STORE ERROR!", e)
 })
 
 
